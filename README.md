@@ -64,7 +64,8 @@ The `F*T` pins are the tachometer outputs from each respective fan, and the `F*P
   - Files can be either aquired [here](https://github.com/FlyingPhantom/BC-250-Hackintosh-OpenCore) or at the original repository [here](https://github.com/amethyst8118/BC-250-Hackintosh-OpenCore).
   
 # Making it work
-It should all just work with any recent release from Fedora/Bazzite etc. However, HW encode/decode *will not work* because we are missing the required firmware for the VCN. This probably won't change any time soon, as Sony are the ones blocking this. 
+It should all just work with any recent release from Fedora/Bazzite etc. HW encode/decode does work
+
 ## Mesa
 - Upstream support [landed](https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33116) in Mesa 25.1. This should be shipped by most big distros at this point
 - You may also need to set ``ttm.pages_limit=3959290`` and ``ttm.page_pool_size=3959290`` as kernel options to access more than 8GB of the shared memory. Thanks Magnap :)
