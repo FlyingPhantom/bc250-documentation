@@ -1,5 +1,5 @@
 # About
-This page is for documentation and information on the ASRock/AMD BC-250, and about running it as a general purpose PC. These are compute units sold in a 4u rackmount chassis for the purpose of crypto mining. Thankfully everyone who bought these for that purpose lost a lot of money and is selling them off for cheap!
+This page is for documentation and information on the ASRock/AMD BC-250, and about running it as a general purpose PC. Based on the original documentation found [here](https://github.com/mothenjoyer69/bc250-documentation). These are compute units sold in a 4u rackmount chassis for the purpose of crypto mining. Thankfully everyone who bought these for that purpose lost a lot of money and is selling them off for cheap!
 
 # Hardware info
 - Features an AMD BC250 APU, codenamed 'Ariel', a cut-down variant of the APU in the PS5. It integrates 6x Zen 2 cores, at up to 3.49GHz (ish), as well as a 24CU RDNA2 iGPU (Codename 'cyan-skillfish'). The standard PS5 SoC has 36CUs.
@@ -49,10 +49,20 @@ The `F*T` pins are the tachometer outputs from each respective fan, and the `F*P
   - At this point, Linux support is almost perfect. Pretty much any distro shipping a modern kernel + mesa should work fine.
   - Don't run LTS distros on this hardware.
 - Windows:
-  - No
-  - It will boot, but the GPU is not supported by any drivers and is unlikely to ever be. Everything else seems to work alright, so I guess if you've been kicked in the head recently you could use it for non-GPU focused workloads.
+  - No currently not.
+  - It will boot, but the GPU is not supported by any drivers but it is theoretically possible to mod by choosing the RX 5000/6000 Gpu drivers, since bc-250 is similar to Navi 10/RDNA1 with some RDNA2 bits. Everything else seems to work alright.
 - MacOS:
-  - Next person to ask this will be asked to find out if the PCIe bracket counts as a flared base.
+  - Support has been made with OpenCore. Most stuff is working but there are some big problems that makes this not recommended for normal usage.
+  - The things that do and do not work:
+  | Function       | Status       |
+|---------------|-------------|
+| CPU        | ✅ Working  |
+| MESA    | ✅ Working  |
+| USB Ports   | ✅ Working  |
+| Ethernet     | ✅ Working  |
+| GPU Acceleration | ❌ Not Working |
+| Audio | ❌ Not Working (related to GPU) |
+  - Files can be either aquired [here](https://github.com/FlyingPhantom/BC-250-Hackintosh-OpenCore) or at the original repository [here](https://github.com/amethyst8118/BC-250-Hackintosh-OpenCore).
   
 # Making it work
 It should all just work with any recent release from Fedora/Bazzite etc. However, HW encode/decode *will not work* because we are missing the required firmware for the VCN. This probably won't change any time soon, as Sony are the ones blocking this. 
@@ -88,6 +98,38 @@ It should all just work with any recent release from Fedora/Bazzite etc. However
     echo c > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
     ```
 
+## Undervolting
+- It is possible to undervolt with the script provided here or originaly found [here](https://github.com/sebastianhzt/AMD-BC-250-Undervolt-Control). Use this at your own risk even though rare if carefull system instability, crashes or data loss can happen but worst possible problem would be hardware damage.
+- Three undervolt profiles, all applied in a loop:
+
+   - Gaming mode – 2000 MHz / 925 mV Balanced mode – 1500 MHz / 810 mV Power saving mode – 1000 MHz / 700 mV
+      - Restore stock option (stop loops + reset OverDrive table). Self-contained: only one script (bc250-control.sh).
+- Requirements:
+   - Linux with the amdgpu driver compatible.
+   - An AMD BC-250 (or compatible) card exposed as card1:
+   - Exposure can be checked with this command:
+   ```
+   ls /sys/class/drm | grep card
+   ```
+## Overclocking
+- It is possible to overclock the GPU and the CPU. The GPU can be overclocked with a kernel patch found here or at the original repository [here](https://github.com/vietsman/bazzite-kernel-patch).
+- You can apply a patch by using this command as a example:
+  ```
+  patch -p1 < path/to/patch-file.patch
+  ```
+## Note for Overclocking and Undervolting section the guide to undervolt the gpu and overclock the cpu havent been provided because i havent found the neccesery information although wen i get the hardware i will try to do so manually and update the readme.
+
+## Compiling a custom kernel for the bc-250:
+- I recommend compiling the kernel using [linux-tkg](https://github.com/Frogging-Family/linux-tkg) project.
+- The cpu is clostest to a Ryzen 7 2700X so wen compiling a kernel for the bc-250 its recommended to use *-march=znver2* and *-mtune=znver2* so the optimizations for that microarchitecture can be applied. This should help performance of it since generally compiling for the specific microarcitecture.
+- Also for better performance its also recommended to do *Full* or *Thin* LTO(***NOT RECOMMENDED WITH LLVM BECAUSE IT CAN LEAD TO UNBOOTABLE KERNEL***).
+- For faster compilation use either kernel_on_diet feature in the config for general use or for personal modprobed-db.
+
+## Proxmox support:
+- Support for proxmox is decent it does include modifying bios so its not recommended for general users.
+- More information can be found at the original repo because its too much to cover in this page.
+- https://github.com/chris2355/BC250-Proxmox-
+
 # Additional notes:
 - These boards more or less just work now, and all you need to do is install a distro, install the GPU governor, and then go to town. 
 - Please don't make issues asking for help with anything *but* these boards.
@@ -97,7 +139,8 @@ It should all just work with any recent release from Fedora/Bazzite etc. However
 - [Segfault](https://github.com/TuxThePenguin0)
 - [neggles](https://github.com/neggles)
 - [yeyus](https://github.com/yeyus)
-
-# WALL OF SHAME!!!!!!!
-1. ![SHAMEFUL](https://github.com/mothenjoyer69/bc250-documentation/blob/main/images/WALL_OF_SHAME_1.png)
-2. ![BOO](https://github.com/mothenjoyer69/bc250-documentation/blob/main/images/WALL_OF_SHAME_2.png)
+- [vietsman](https://github.com/vietsman)
+- [mothenjoyer69](https://github.com/mothenjoyer69)
+- [Frogging-Family](https://github.com/Frogging-Family)
+- [sebastianhzt](https://github.com/sebastianhzt)
+- [chris2355](https://github.com/chris2355)
