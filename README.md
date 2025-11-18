@@ -149,6 +149,8 @@ It should all just work with any recent release from Fedora/Bazzite etc. HW enco
 - Please don't make issues asking for help with anything *but* these boards.
 - A discord server exists [here](https://discord.gg/uDvkhNpxRQ). This is a community of people running and pushing the limits of these boards. Feel free to say hi.
 
+# For questions go to the FAQ: [here](https://github.com/FlyingPhantom/bc250-documentation/blob/main/FAQ.md)
+
 # Credits
 - [Segfault](https://github.com/TuxThePenguin0)
 - [neggles](https://github.com/neggles)
