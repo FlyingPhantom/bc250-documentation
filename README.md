@@ -54,20 +54,12 @@ The `F*T` pins are the tachometer outputs from each respective fan, and the `F*P
 - MacOS:
   - Support has been made with OpenCore. Most stuff is working but there are some big problems that makes this not recommended for normal usage.
   - The things that do and do not work:
-</p>
-<div align="left">
-  | Function       | Status       |
-|---------------|-------------|
-| CPU        | ✅ Working  |
-| MESA    | ✅ Working  |
-| USB Ports   | ✅ Working  |
-| Ethernet     | ✅ Working  |
-| GPU Acceleration | ❌ Not Working |
-| Audio | ❌ Not Working (related to GPU) |
-
-</div> 
-<br>
-<div align="left">
+      - CPU ✅ Working
+      - MESA ✅ Working
+      - Usb Ports ✅ Working
+      - Ethernet ✅ Working
+      - Gpu Acceleration ❌ Not Working
+      - Audio ❌ Not Working (Problem is gpu related)
 
   - Files can be either aquired [here](https://github.com/FlyingPhantom/BC-250-Hackintosh-OpenCore) or at the original repository [here](https://github.com/amethyst8118/BC-250-Hackintosh-OpenCore).
   
