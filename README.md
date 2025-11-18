@@ -48,6 +48,10 @@ The `F*T` pins are the tachometer outputs from each respective fan, and the `F*P
 - Linux:
   - At this point, Linux support is almost perfect. Pretty much any distro shipping a modern kernel + mesa should work fine.
   - Don't run LTS distros on this hardware.
+- FreeBSD:
+  - FreeBSD is similar to linux so support for it shouldnt be hard to support it, since it uses mesa as well for the gpu drivers you should be able to patch the mesa driver manually to support it.
+- Android:
+   - Android support is also possible with Android x86 project with patched mesa, it should be same process as for FreeBSD for Android but a bit more difficult. 
 - Windows:
   - No currently not.
   - It will boot, but the GPU is not supported by any drivers but it is theoretically possible to mod by choosing the RX 5000/6000 Gpu drivers, since bc-250 is similar to Navi 10/RDNA1 with some RDNA2 bits. Everything else seems to work alright.
@@ -62,7 +66,10 @@ The `F*T` pins are the tachometer outputs from each respective fan, and the `F*P
       - Audio ❌ Not Working (Problem is gpu related)
 
   - Files can be either aquired [here](https://github.com/FlyingPhantom/BC-250-Hackintosh-OpenCore) or at the original repository [here](https://github.com/amethyst8118/BC-250-Hackintosh-OpenCore).
-  
+
+  - Pfense:
+    - I have no fucking idea. 
+
 # Making it work
 It should all just work with any recent release from Fedora/Bazzite etc. HW encode/decode does work
 
@@ -88,6 +95,13 @@ It should all just work with any recent release from Fedora/Bazzite etc. HW enco
 - In order for ``lm-sensors`` to recognize the chip (ID ``0xd441``), you must load the nct6683 driver. You can so via ``modprobe nct6683 force=true`` or by adding ``options nct6683 force=true`` to ``/etc/modprobe.d/sensors.conf``, and ``nct6683``to ``/etc/modules-load.d/99-sensors.conf`` and regenerate your initramfs.
 - Once enabled you should see a bunch more sensor data reported, including important temps :)
 - Massive thanks to [yeyus](https://github.com/yeyus) for [this info](https://github.com/mothenjoyer69/bc250-documentation/issues/3).
+
+## NTC6687 Fan Control
+- The follow driver found originaly [here](https://github.com/Fred78290/nct6687d) can be used to controll the fan.
+- To make a custom fan you can use LACT which is a gpu configuration tool for gpus.
+- The link to the flatpak is provided [here](https://flathub.org/en/apps/io.github.ilya_zlobintsev.LACT).
+- The following app can also be used for overclocking and undervolting.  
+
 
 ## Performance
 - A GPU governor is available [here](https://gitlab.com/mothenjoyer69/oberon-governor). You should use it. Values are set in /etc/oberon-config.yaml.
