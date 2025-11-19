@@ -126,7 +126,7 @@ It should all just work with any recent release from Fedora/Bazzite etc. HW enco
    ls /sys/class/drm | grep card
    ```
 ## Overclocking
-- It is possible to overclock the GPU and the CPU. The GPU can be overclocked with a kernel patch found here or at the original repository [here](https://github.com/vietsman/bazzite-kernel-patch).
+- It is possible to overclock the GPU and the CPU. The GPU can be overclocked with a kernel patch found [here](https://github.com/FlyingPhantom/bazzite-kernel-patch/blob/main/linux-kernel-bc250.patch) or at the original repository [here](https://github.com/vietsman/bazzite-kernel-patch).
 - You can apply a patch by using this command as a example:
   ```
   patch -p1 < path/to/patch-file.patch
